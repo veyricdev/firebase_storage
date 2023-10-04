@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 // import logger from '@/logs/winston';
 
 export const errorHandle = (err, _req, res, _next) => {

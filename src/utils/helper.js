@@ -1,6 +1,6 @@
 export const errorResponse = (error) => {
   const errorResponseData = {
-    result: RESULT_FAIL,
+    result: 0,
     isLogger: true,
     msg: 'Server error!',
   };
