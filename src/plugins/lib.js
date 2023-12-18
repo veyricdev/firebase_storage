@@ -6,8 +6,11 @@ import cors from 'cors';
 import compression from 'compression';
 import helmet from 'helmet';
 import { rateLimit } from 'express-rate-limit';
+import { initializeApp } from 'firebase/app';
 import { NODE_ENV, TOKEN_SECRET } from '@/config/env';
 import { A_SECOND } from '@/config/constants';
+import { firebaseConfig } from '@/config/firebase';
+import { corsOptions } from '@/config/cros';
 
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
@@ -16,6 +19,9 @@ const limiter = rateLimit({
   legacyHeaders: false, // Disable the `X-RateLimit-*` headers
   // store: ... , // Use an external store for more precise rate limiting
 });
+
+//Initialize a firebase application
+initializeApp(firebaseConfig);
 
 export const setupLibs = (app) => {
   app.use(logger('dev'));
@@ -30,7 +36,7 @@ export const setupLibs = (app) => {
       saveUninitialized: true,
     })
   );
-  app.use(cors());
+  app.use(cors(corsOptions));
   app.use(helmet());
   app.use(compression());
 
