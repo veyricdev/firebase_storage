@@ -1,7 +1,7 @@
 {
-  "name": "nodejs_express_basic_structure",
+  "name": "firebase_storage",
   "version": "1.0.0",
-  "description": "NodeJS + Express Structure Basic",
+  "description": "Build Cloud With Express + Firebase Storage",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -12,11 +12,12 @@
     "production": "npm run build && node ./build/src/index.js",
     "lint": "eslint ./src --fix --max-warnings=0",
     "lint:prettier": "prettier --write  \"src/**/*.{js,json,css,less,scss,html,md}\"",
-    "lint:lint-staged": "lint-staged"
+    "lint:lint-staged": "lint-staged",
+    "prepare": "husky install"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/avnendv/nodejs_express_basic_structure.git"
+    "url": "git+https://github.com/avnendv/firebase_storage.git"
   },
   "keywords": [
     "nodejs",
@@ -26,9 +27,9 @@
   "author": "AVNENDV",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/avnendv/nodejs_express_basic_structure/issues"
+    "url": "https://github.com/avnendv/firebase_storage/issues"
   },
-  "homepage": "https://github.com/avnendv/nodejs_express_basic_structure#readme",
+  "homepage": "https://github.com/avnendv/firebase_storage#readme",
   "dependencies": {
     "@babel/runtime": "^7.23.1",
     "express": "^4.18.2"
@@ -51,25 +52,10 @@
     "express-rate-limit": "^7.0.2",
     "express-session": "^1.17.3",
     "helmet": "^7.0.0",
+    "husky": "^8.0.3",
     "lint-staged": "^14.0.1",
     "morgan": "^1.10.0",
     "nodemon": "^3.0.1",
     "prettier": "^3.0.3"
-  },
-  "lint-staged": {
-    "*.{js,jsx,ts,tsx}": [
-      "eslint --fix",
-      "prettier --write"
-    ],
-    "*.json": [
-      "prettier --write"
-    ],
-    "*.{scss,less,styl,html}": [
-      "stylelint --fix --allow-empty-input",
-      "prettier --write"
-    ],
-    "*.md": [
-      "prettier --write"
-    ]
   }
 }
