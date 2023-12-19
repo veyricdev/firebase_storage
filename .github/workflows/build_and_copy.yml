@@ -38,6 +38,11 @@ jobs:
         run: |
           cp -r build/src/* src/
 
+      - name: Configure Git
+        run: |
+          git config --global user.email "viet.nd.avnendv@gmail.com"
+          git config --global user.name "avnendv"
+
       - name: Commit and Push Changes
         run: |
           git add .
