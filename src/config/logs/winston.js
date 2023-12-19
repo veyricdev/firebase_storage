@@ -1,7 +1,6 @@
 import path from 'path';
 import winston from 'winston';
 import DailyRotateFile from 'winston-daily-rotate-file';
-import { IS_PROD } from '../constants';
 
 const logger = winston.createLogger({
   // log formats are combined via format.combine
@@ -30,7 +29,7 @@ const logger = winston.createLogger({
       maxsize: 5242880,
     }),
     new DailyRotateFile({
-      filename: IS_PROD ? '/src/config/logs/date/' : path.join(__dirname, '..', 'logs/date', `%DATE%.log`),
+      filename: path.join(__dirname, '..', 'logs/date', `%DATE%.log`),
       datePattern: 'YYYY-MM-DD',
     }),
   ],
