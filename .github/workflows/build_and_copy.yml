@@ -29,12 +29,15 @@ jobs:
           git checkout -b production
           git push origin production
 
+      - name: Delete Existing Files in src
+        run: rm -rf src/*
+
       - name: Copy Build Output to New Branch
         run: |
-          cp -r build/* /
+          cp -r build/src/* src/
 
       - name: Commit and Push Changes
         run: |
           git add .
-          git commit -m "Copy build to new branch"
+          git commit -m "Copy build to production branch"
           git push origin production
