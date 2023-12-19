@@ -32,7 +32,9 @@ jobs:
           git push origin production -f
 
       - name: Delete Existing Files in src
-        run: rm -rf src/*
+        run: |
+          rm -rf src/*
+          rm -rf .github/*
 
       - name: Copy Build Output to New Branch
         run: |
