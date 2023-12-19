@@ -22,7 +22,7 @@ jobs:
         run: npm install # install package
 
       - name: Build Source Code
-        run: npm run production # build production
+        run: npm run build # build production
 
       - name: Create and Checkout New Branch
         run: |
