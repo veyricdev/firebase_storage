@@ -31,7 +31,7 @@ jobs:
 
       - name: Copy Build Output to New Branch
         run: |
-          cp -r build/* .
+          cp -r build/* /
 
       - name: Commit and Push Changes
         run: |
