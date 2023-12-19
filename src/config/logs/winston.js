@@ -20,21 +20,31 @@ const logger = winston.createLogger({
       return `[${log.timestamp}] [${log.level}] ${log.message}`;
     })
   ),
-  transports: [
-    // display log through console
-    new winston.transports.Console(),
-    // Set up writing errors to file
-    new winston.transports.File({
-      level: 'error',
-      filename: path.join(__dirname, '..', 'logs', 'logs.log'),
-      maxsize: 5242880,
-    }),
-    !IS_VERCEL &&
-      new DailyRotateFile({
-        filename: path.join(__dirname, '..', 'logs/date', `%DATE%.log`),
-        datePattern: 'YYYY-MM-DD',
-      }),
-  ],
+  transports: IS_VERCEL
+    ? [
+        // display log through console
+        new winston.transports.Console(),
+        // Set up writing errors to file
+        new winston.transports.File({
+          level: 'error',
+          filename: path.join(__dirname, '..', 'logs', 'logs.log'),
+          maxsize: 5242880,
+        }),
+      ]
+    : [
+        // display log through console
+        new winston.transports.Console(),
+        // Set up writing errors to file
+        new winston.transports.File({
+          level: 'error',
+          filename: path.join(__dirname, '..', 'logs', 'logs.log'),
+          maxsize: 5242880,
+        }),
+        new DailyRotateFile({
+          filename: path.join(__dirname, '..', 'logs/date', `%DATE%.log`),
+          datePattern: 'YYYY-MM-DD',
+        }),
+      ],
 });
 
 export default logger;
