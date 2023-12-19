@@ -1,0 +1,40 @@
+name: Build and Copy
+
+on:
+  push:
+    branches:
+      - develop
+
+jobs:
+  build-and-copy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Install Dependencies
+        run: npm install # install package
+
+      - name: Build Source Code
+        run: npm run production # build production
+
+      - name: Create and Checkout New Branch
+        run: |
+          git checkout -b production
+          git push origin production
+
+      - name: Copy Build Output to New Branch
+        run: |
+          cp -r build/* .
+
+      - name: Commit and Push Changes
+        run: |
+          git add .
+          git commit -m "Copy build to new branch"
+          git push origin production
