@@ -12,4 +12,4 @@ export const FIREBASE_MESSAGING_SENDER_ID = process.env.FIREBASE_MESSAGING_SENDE
 export const FIREBASE_APP_ID = process.env.FIREBASE_APP_ID || '';
 export const FIREBASE_MEASUREMENT_ID = process.env.FIREBASE_MEASUREMENT_ID || '';
 export const WHITELIST_DOMAINS_URL = process.env.WHITELIST_DOMAINS_URL || '';
-export const IS_VERCEL = process.env.IS_VERCEL || false;
+export const IS_VERCEL = +process.env.IS_VERCEL || false;

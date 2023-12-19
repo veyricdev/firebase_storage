@@ -29,10 +29,11 @@ const logger = winston.createLogger({
       filename: path.join(__dirname, '..', 'logs', 'logs.log'),
       maxsize: 5242880,
     }),
-    new DailyRotateFile({
-      filename: IS_VERCEL ? path.join('/tmp/', `%DATE%.log`) : path.join(__dirname, '..', 'logs/date', `%DATE%.log`),
-      datePattern: 'YYYY-MM-DD',
-    }),
+    IS_VERCEL &&
+      new DailyRotateFile({
+        filename: path.join(__dirname, '..', 'logs/date', `%DATE%.log`),
+        datePattern: 'YYYY-MM-DD',
+      }),
   ],
 });
 
