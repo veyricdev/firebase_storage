@@ -13,3 +13,5 @@ export const FIREBASE_APP_ID = process.env.FIREBASE_APP_ID || '';
 export const FIREBASE_MEASUREMENT_ID = process.env.FIREBASE_MEASUREMENT_ID || '';
 export const WHITELIST_DOMAINS_URL = process.env.WHITELIST_DOMAINS_URL || '';
 export const IS_VERCEL = +process.env.IS_VERCEL || false;
+export const MONGO_URL = process.env.MONGODB_URI || process.env.MONGO_URL || '';
+export const MONGO_DB_NAME = process.env.MONGO_DB_NAME || 'upload_db';

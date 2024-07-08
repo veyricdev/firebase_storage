@@ -1,7 +1,10 @@
-import { getStorage, ref, getDownloadURL, uploadBytesResumable } from 'firebase/storage';
+import { getStorage, ref, getDownloadURL, uploadBytesResumable, deleteObject } from 'firebase/storage';
+import axios from 'axios';
 import { catchAsync } from '@/utils/catchAsync';
 import { successResponse } from '@/utils/response';
 import { UPLOAD_SECRET } from '@/config/env';
+import { getExtname, getFileName, getSize, giveCurrentDateTime } from '@/utils';
+import UploadModel from '@/models/UploadModel';
 
 // Initialize Cloud Storage and get a reference to the service
 const storage = getStorage();
@@ -13,8 +16,9 @@ export const UploadController = {
     if (req.headers['x-upload-secret'] !== UPLOAD_SECRET) throw new Error('Something wrong!');
 
     const dateTime = giveCurrentDateTime();
+    const fileName = `${getFileName(req.file.originalname)}__${dateTime}`;
 
-    const storageRef = ref(storage, `files/${`${req.file.originalname}__${dateTime}`}`);
+    const storageRef = ref(storage, `files/${`${fileName}`}`);
 
     // Create file metadata including the content type
     const metadata = {
@@ -29,20 +33,57 @@ export const UploadController = {
     const downloadURL = await getDownloadURL(snapshot.ref);
 
     const data = {
-      message: 'File uploaded to firebase storage!',
-      name: req.file.originalname,
-      type: req.file.mimetype,
+      name: fileName,
+      extName: getExtname(req.file.originalname),
+      mimetype: req.file.mimetype,
       downloadURL,
+      size: getSize(req.file.size),
+      created_at: Date.now(),
     };
 
-    return res.json(successResponse(data));
-  }),
-};
+    const uploadData = await UploadModel.store(data);
 
-const giveCurrentDateTime = () => {
-  const today = new Date();
-  const date = `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`;
-  const time = `${today.getHours()}-${today.getMinutes()}-${today.getSeconds()}`;
-  const dateTime = `${date}-${time}`;
-  return dateTime;
+    return res.json(successResponse('File uploaded to firebase storage!', { ...uploadData }));
+  }),
+
+  show: catchAsync(async (req, res) => {
+    const result = await UploadModel.findById(req.params.id);
+
+    if (!result) throw new Error('File not found!');
+
+    return res.json(successResponse('Get file!', result));
+  }),
+
+  displayFile: catchAsync(async (req, res) => {
+    const result = await UploadModel.findById(req.params.id);
+
+    if (!result) throw new Error('File not found!');
+
+    const response = await axios({
+      url: result.downloadURL,
+      method: 'GET',
+      responseType: 'stream',
+    });
+
+    res.setHeader(`Content-Disposition`, `attachment; filename="${result.name}"`);
+    res.setHeader('Content-Type', result.mimetype);
+
+    return response.data.pipe(res);
+  }),
+
+  list: catchAsync(async (req, res) => {
+    const result = await UploadModel.list(req.query);
+
+    return res.json(successResponse('List file', result));
+  }),
+
+  destroy: catchAsync(async (req, res) => {
+    const result = await UploadModel.destroy(req.params.id);
+    if (result) {
+      const desertRef = ref(storage, `files/${result.name}`);
+      deleteObject(desertRef);
+    }
+
+    return res.json(successResponse('Remove file!'));
+  }),
 };

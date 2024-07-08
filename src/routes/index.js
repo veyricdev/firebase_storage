@@ -12,7 +12,11 @@ const router = (app) => {
   // say hello world
   app.get('/', HelloWorld);
 
+  app.get('/upload', UploadController.list);
   app.post('/upload', upload.single('file'), UploadController.upload);
+  app.get('/upload/:id', UploadController.displayFile);
+  app.delete('/upload/:id', UploadController.destroy);
+  app.get('/upload/:id/info', UploadController.show);
 
   // handle errors
   app.use(errorHandle);

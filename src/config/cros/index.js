@@ -6,7 +6,7 @@ export const corsOptions = {
   origin(origin, callback) {
     // alow all when not production
     if (!IS_PROD) return callback(null, true);
-    console.log(origin);
+
     // check domain is in whitelist domain
     if (WHITELIST_DOMAINS.filter(Boolean).includes(origin)) return callback(null, true);
 

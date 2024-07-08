@@ -9,9 +9,10 @@ export const errorResponse = (error) => {
   return { ...errorResponseData, ...error };
 };
 
-export const successResponse = (data = null, pagination = undefined) => {
+export const successResponse = (msg = '', data = null, pagination = undefined) => {
   const responseData = {
     result: RESULT_OK,
+    msg,
     data,
     pagination,
   };
