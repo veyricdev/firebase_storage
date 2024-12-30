@@ -59,16 +59,10 @@ export const UploadController = {
 
     if (!result) throw new Error('File not found!');
 
-    const response = await axios({
-      url: result.downloadURL,
-      method: 'GET',
-      responseType: 'stream',
-    });
+    const response = await axios(result.downloadURL, { responseType: 'arraybuffer' });
 
-    res.setHeader(`Content-Disposition`, `attachment; filename="${result.name}"`);
-    res.setHeader('Content-Type', result.mimetype);
-
-    return response.data.pipe(res);
+    res.set('Content-Type', response.headers['content-type']);
+    res.send(response.data);
   }),
 
   list: catchAsync(async (req, res) => {
