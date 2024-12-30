@@ -74,7 +74,7 @@ export const UploadController = {
   list: catchAsync(async (req, res) => {
     const result = await UploadModel.list(req.query);
 
-    return res.json(successResponse('List file', result));
+    return res.json(successResponse('List file!', result));
   }),
 
   destroy: catchAsync(async (req, res) => {
