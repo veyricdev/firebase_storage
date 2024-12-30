@@ -37,7 +37,11 @@ export const setupLibs = (app) => {
     })
   );
   app.use(cors(corsOptions));
-  app.use(helmet());
+  app.use(
+    helmet({
+      crossOriginResourcePolicy: false,
+    })
+  );
   app.use(compression());
 
   // Apply the rate limiting middleware to all requests on production
