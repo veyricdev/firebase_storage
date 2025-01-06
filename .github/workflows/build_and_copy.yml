@@ -37,6 +37,10 @@ jobs:
           rm -rf .github/*
           rm -rf .husky/*
 
+      - name: Copy Build Output to New Branch
+        run: |
+          cp -r dist/* /
+
       - name: Configure Git
         run: |
           git config --global user.email "viet.nd.avnendv@gmail.com"
