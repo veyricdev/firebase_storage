@@ -2,6 +2,7 @@ import { StatusCodes } from 'http-status-codes';
 import logger from '@/config/logs/winston';
 import { errorResponse } from '@/utils/response';
 import { IS_PROD } from '@/config/constants';
+import { IS_VERCEL } from '@/config/env';
 
 const infoStack = (stack) => {
   const stackLines = stack?.split('\n');
@@ -36,7 +37,7 @@ export const errorHandle = (err, _req, res, _next) => {
   const error = errorResponse(responseError);
   const { isLogger, ...errorData } = error;
 
-  if (isLogger) logger.error(JSON.stringify(errorData));
+  if (isLogger) IS_VERCEL || logger.error(JSON.stringify(errorData));
 
   return res.json({
     result: errorData.result,
