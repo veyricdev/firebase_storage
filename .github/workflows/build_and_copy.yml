@@ -36,10 +36,8 @@ jobs:
           rm -rf src/*
           rm -rf .github/*
           rm -rf .husky/*
-
-      - name: Copy Build Output to New Branch
-        run: |
-          cp -r dist/* dist/
+          rm -rf .gitignore
+          rm -rf node_modules
 
       - name: Configure Git
         run: |
