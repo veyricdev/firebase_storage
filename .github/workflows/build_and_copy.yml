@@ -39,7 +39,7 @@ jobs:
 
       - name: Copy Build Output to New Branch
         run: |
-          cp -r dist/* dist/*
+          cp -r dist/* dist/
 
       - name: Configure Git
         run: |
