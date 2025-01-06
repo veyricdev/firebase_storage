@@ -40,6 +40,7 @@ jobs:
           rm -rf node_modules
           rm -rf package.json
           rm -rf package-lock.json
+          npm init -y
 
       - name: Configure Git
         run: |
