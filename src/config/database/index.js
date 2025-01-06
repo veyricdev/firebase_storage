@@ -3,7 +3,7 @@ import { Db, MongoClient } from 'mongodb';
 import { MONGO_DB_NAME, MONGO_URL } from '../env';
 import { A_SECOND } from '../constants';
 
-const TIME_OUT = 60000;
+const TIME_OUT = 120000;
 const MAX_CONNECT_RETRY = 3;
 export const client = new MongoClient(MONGO_URL, {
   minPoolSize: 10,
