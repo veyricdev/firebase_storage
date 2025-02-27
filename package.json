@@ -1,6 +1,6 @@
 {
   "name": "firebase_storage",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Build Cloud With Express + Firebase Storage",
   "main": "index.js",
   "scripts": {
@@ -18,19 +18,19 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/avnendv/firebase_storage.git"
+    "url": "git+https://github.com/veyricdev/firebase_storage.git"
   },
   "keywords": [
     "nodejs",
     "express",
     "structure"
   ],
-  "author": "AVNENDV",
+  "author": "Veyric Dev",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/avnendv/firebase_storage/issues"
+    "url": "https://github.com/veyricdev/firebase_storage/issues"
   },
-  "homepage": "https://github.com/avnendv/firebase_storage#readme",
+  "homepage": "https://github.com/veyricdev/firebase_storage#readme",
   "dependencies": {
     "@babel/runtime": "^7.23.1",
     "axios": "^1.7.2",
