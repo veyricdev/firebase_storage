@@ -10,7 +10,6 @@ import { initializeApp } from 'firebase/app';
 import { IS_VERCEL, NODE_ENV, TOKEN_SECRET } from '@/config/env';
 import { A_SECOND } from '@/config/constants';
 import { firebaseConfig } from '@/config/firebase';
-import { corsOptions } from '@/config/cros';
 
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
@@ -36,7 +35,7 @@ export const setupLibs = (app) => {
       saveUninitialized: true,
     })
   );
-  app.use(cors(corsOptions));
+  app.use(cors('*'));
   app.use(
     helmet({
       crossOriginResourcePolicy: false,
